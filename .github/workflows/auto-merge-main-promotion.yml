@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Promote dev to main after checks pass
+      - name: Enable auto-merge for dev to main promotion PR
         env:
           GH_TOKEN: ${{ secrets.SLOT4_AUTOMATION_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -33,28 +33,4 @@ jobs:
             echo "SLOT4_AUTOMATION_TOKEN secret is required."
             exit 1
           fi
-
-          # Wait for the promotion PR's checks to PASS before merging. Checks are fully
-          # enforced here; only the owner-only human-review gate is bypassed below via
-          # --admin (which the trusted automation token can use, but collaborators cannot,
-          # so collaborators still cannot land anything on main directly).
-          for attempt in {1..60}; do
-            checks_json="$(gh pr checks "$PR_NUMBER" --json name,state,bucket 2>/dev/null || echo '[]')"
-            failed_count="$(jq '[.[] | select(.bucket == "fail" or .bucket == "cancel")] | length' <<<"$checks_json")"
-            pending_count="$(jq '[.[] | select(.name != "enable-main-auto-merge" and .bucket != "pass" and .bucket != "skipping")] | length' <<<"$checks_json")"
-
-            if [[ "$failed_count" != "0" ]]; then
-              echo "Promotion checks failed:"
-              jq -r '.[] | select(.bucket == "fail" or .bucket == "cancel") | "- \(.name): \(.bucket)"' <<<"$checks_json"
-              exit 1
-            fi
-            if [[ "$pending_count" == "0" ]]; then
-              echo "Promotion checks passed."
-              break
-            fi
-            echo "Waiting for promotion checks to complete... attempt $attempt"
-            sleep 10
-          done
-
-          # Checks verified above; merge bypassing only the review requirement.
-          gh pr merge "$PR_NUMBER" --admin --squash
+          gh pr merge "$PR_NUMBER" --auto --squash
