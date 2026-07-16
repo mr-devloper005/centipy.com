@@ -3,19 +3,19 @@ import { slot4BrandConfig } from '@/editable/theme/brand.config'
 export const pagesContent = {
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
-      description: 'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
+      title: 'Centipy — useful articles and thoughtful discovery',
+      description: 'Read practical articles, informed guides, and fresh visual stories on Centipy.',
       openGraphTitle: 'Stories, visuals, and discoverable content',
       openGraphDescription: 'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
       keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
     },
     hero: {
-      badge: 'Latest stories and visuals',
-      title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
-      description: 'Explore fresh articles, image-led posts, and discoverable content across the platform through a calmer and clearer browsing experience.',
+      badge: 'Fresh from Centipy',
+      title: ['Ideas worth reading.', 'Perspectives worth sharing.'],
+      description: 'Explore practical stories, informed guides, and useful visual resources in one clear place.',
       primaryCta: { label: 'Read latest stories', href: '/article' },
       secondaryCta: { label: 'Explore visuals', href: '/image' },
-      searchPlaceholder: 'Search stories, visuals, listings, and more',
+      searchPlaceholder: 'Search stories, guides, visuals, and more',
       focusLabel: 'Focus',
       featureCardBadge: 'latest cover rotation',
       featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
@@ -88,8 +88,8 @@ export const pagesContent = {
     },
     hero: {
       badge: 'Search the archive',
-      title: 'Find stories, listings, visuals, and resources faster.',
-      description: 'Use keywords, categories, and content types to discover posts from every active section of the site.',
+      title: 'Find useful stories and fresh perspectives faster.',
+      description: 'Use keywords and categories to discover articles from across the Centipy archive.',
       placeholder: 'Search by keyword, topic, category, or title',
     },
     resultsTitle: 'Latest searchable content',
