@@ -10,7 +10,7 @@ export const adSkin: AdSkin = {
   radius: '16px',
   border: '1px solid rgba(0,0,0,0.06)',
   shadow: '0 8px 30px rgba(0,0,0,0.06)',
-  background: '#ffffff',
+  background: '#ECECEC',
   labelClassName: 'bg-[#FF6600] text-white',
 }
 
@@ -30,5 +30,3 @@ export function skinFor(slot: string): AdSkin {
   return { ...adSkin, ...(adSkinBySlot[slot] ?? {}) }
 }
 // junior tweak
-
-

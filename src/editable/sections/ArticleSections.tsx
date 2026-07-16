@@ -19,7 +19,7 @@ export function EditableArticleArchive({ posts, pagination, category = 'all', ba
           <h1 className={`${dc.type.heroTitle} mt-5 max-w-5xl`}>{voice.headline}</h1>
           <p className="mt-6 max-w-3xl text-base leading-8 text-white/72 sm:text-lg">{voice.description}</p>
           <form action={basePath} className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row">
-            <select name="category" defaultValue={category || 'all'} className={`min-w-0 flex-1 rounded-full border ${pal.darkBorder} bg-white px-5 py-3 text-sm font-bold ${pal.panelText} outline-none`}>
+            <select name="category" defaultValue={category || 'all'} className={`min-w-0 flex-1 rounded-full border ${pal.border} bg-[var(--slot4-surface-bg)] px-5 py-3 text-sm font-bold ${pal.panelText} outline-none`}>
               <option value="all">All categories</option>
               {CATEGORY_OPTIONS.map((item) => <option key={item.slug} value={item.slug}>{item.name}</option>)}
             </select>
@@ -40,9 +40,9 @@ export function EditableArticleArchive({ posts, pagination, category = 'all', ba
           </div>
         )}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          {pagination.hasPrevPage ? <Link href={pageHref(page - 1)} className={`rounded-full border ${pal.border} bg-white px-5 py-3 text-sm font-black`}>Previous</Link> : null}
+          {pagination.hasPrevPage ? <Link href={pageHref(page - 1)} className={`rounded-full border ${pal.border} bg-[var(--slot4-surface-bg)] px-5 py-3 text-sm font-black`}>Previous</Link> : null}
           <span className={`rounded-full ${pal.darkBg} px-5 py-3 text-sm font-black text-white`}>Page {page} of {pagination.totalPages || 1}</span>
-          {pagination.hasNextPage ? <Link href={pageHref(page + 1)} className={`rounded-full border ${pal.border} bg-white px-5 py-3 text-sm font-black`}>Next</Link> : null}
+          {pagination.hasNextPage ? <Link href={pageHref(page + 1)} className={`rounded-full border ${pal.border} bg-[var(--slot4-surface-bg)] px-5 py-3 text-sm font-black`}>Next</Link> : null}
         </div>
       </section>
     </main>
@@ -54,7 +54,7 @@ export function EditableArticleDetailShell({ slug, post }: { slug: string; post:
   return (
     <main className={dc.shell.page}>
       <section className={`${dc.shell.section} pt-10 sm:pt-14 lg:pt-16`}>
-        <div className={`grid gap-6 rounded-[2.5rem] border ${pal.border} bg-white p-6 shadow-[0_24px_80px_rgba(24,20,17,0.08)] lg:grid-cols-[minmax(0,1fr)_320px] lg:p-10`}>
+        <div className={`grid gap-6 rounded-[2.5rem] border ${pal.border} bg-[var(--slot4-surface-bg)] p-6 shadow-[0_24px_80px_rgba(10,20,13,0.18)] lg:grid-cols-[minmax(0,1fr)_320px] lg:p-10`}>
           <div className="min-w-0">
             <Link href="/article" className={`inline-flex items-center gap-2 rounded-full border ${pal.border} px-4 py-2 text-sm font-black ${pal.panelText}`}><ChevronLeft className="h-4 w-4" /> Articles</Link>
             <p className={`${dc.type.eyebrow} mt-8 ${pal.accentText}`}>{voice.eyebrow}</p>
@@ -68,7 +68,7 @@ export function EditableArticleDetailShell({ slug, post }: { slug: string; post:
         </div>
       </section>
       <section className="mx-auto w-full max-w-5xl px-4 pb-16 pt-6 sm:px-6 lg:px-8 lg:pb-24">
-        <div className={`rounded-[2.25rem] border ${pal.border} bg-white p-6 shadow-[0_24px_80px_rgba(24,20,17,0.08)] sm:p-8 lg:p-10`}>
+        <div className={`rounded-[2.25rem] border ${pal.border} bg-[var(--slot4-surface-bg)] p-6 shadow-[0_24px_80px_rgba(10,20,13,0.18)] sm:p-8 lg:p-10`}>
           <p className={`text-sm leading-8 ${pal.softMutedText}`}>{post?.summary || `Article detail content for ${slug} will render through the editable detail page.`}</p>
         </div>
       </section>

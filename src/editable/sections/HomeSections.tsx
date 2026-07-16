@@ -134,23 +134,23 @@ export function EditableHomeHero({ primaryTask, primaryRoute, posts, timeSection
   const pool = dedupePosts([...posts, ...timeSections.flatMap((section) => section.posts)])
   const heroImages = latestPostImages(pool)
   const heroTitle = pagesContent.home.hero.title?.join(' ') || `Discover the best of ${SITE_CONFIG.name}`
-  const categories = SITE_CONFIG.tasks.filter((task) => task.enabled).slice(0, 6)
+  const categories = SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'listing').slice(0, 6)
 
   return (
-    <section className="relative">
+    <section className="relative border-b-4 border-[#84934A]">
       <div className="relative h-[440px] w-full overflow-hidden sm:h-[520px] lg:h-[560px]">
         <EditableHeroCollage images={heroImages} />
         <div className="absolute inset-0 bg-black/25" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.82)_0%,rgba(0,0,0,0.5)_45%,rgba(0,0,0,0.2)_100%)]" />
         <div className={`relative flex h-full flex-col justify-center ${container}`}>
-          <div className="max-w-2xl">
+          <div className="centipy-float max-w-2xl border-l-4 border-[#84934A] pl-6">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/80">{pagesContent.home.hero.badge || 'Welcome'}</p>
             <h1 className="mt-3 text-balance text-4xl font-extrabold leading-[1.05] tracking-[-0.02em] text-white sm:text-5xl lg:text-6xl">
               {heroTitle}
             </h1>
             <p className="mt-4 max-w-xl text-base text-white/90 sm:text-lg">{pagesContent.home.hero.description}</p>
 
-            <form action="/search" className="mt-7 flex w-full max-w-xl overflow-hidden rounded-full bg-white shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+            <form action="/search" className="mt-7 flex w-full max-w-xl overflow-hidden border-2 border-white bg-white shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
               <div className="flex flex-1 items-center gap-2.5 px-5">
                 <Search className="h-5 w-5 shrink-0 text-[var(--slot4-muted-text)]" />
                 <input
@@ -169,7 +169,7 @@ export function EditableHomeHero({ primaryTask, primaryRoute, posts, timeSection
                 <Link
                   key={task.key}
                   href={task.route}
-                  className="rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
+                  className="border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-sm transition hover:bg-white/20"
                 >
                   {task.label}
                 </Link>
@@ -184,8 +184,8 @@ export function EditableHomeHero({ primaryTask, primaryRoute, posts, timeSection
       {/* Quick stat strip under hero (Yelp-like trust band) */}
       <div className="border-b border-[var(--editable-border)] bg-[var(--slot4-surface-bg)]">
         <div className={`flex flex-wrap items-center justify-center gap-x-10 gap-y-2 py-4 text-sm text-[var(--slot4-muted-text)] ${container}`}>
-          <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-[var(--slot4-accent)] text-[var(--slot4-accent)]" /> Trusted reviews</span>
-          <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 text-[var(--slot4-accent)]" /> Local discovery</span>
+          <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 fill-[var(--slot4-accent)] text-[var(--slot4-accent)]" /> Editor highlights</span>
+          <span className="inline-flex items-center gap-2"><FileText className="h-4 w-4 text-[var(--slot4-accent)]" /> Practical reading</span>
           <span className="hidden items-center gap-2 sm:inline-flex"><ThumbsUp className="h-4 w-4 text-[var(--slot4-accent)]" /> Updated daily</span>
           <Link href={primaryRoute} className="inline-flex items-center gap-1 font-semibold text-[var(--slot4-accent)] hover:underline">
             Browse {taskLabel(primaryTask).toLowerCase()} <ChevronRight className="h-4 w-4" />
@@ -198,7 +198,7 @@ export function EditableHomeHero({ primaryTask, primaryRoute, posts, timeSection
 
 /* -------------------------- Browse by category -------------------------- */
 export function EditableStoryRail({ primaryRoute }: HomeSectionProps) {
-  const categories = SITE_CONFIG.tasks.filter((task) => task.enabled)
+  const categories = SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'listing')
   if (!categories.length) return null
   return (
     <section className="bg-[var(--slot4-surface-bg)]">
@@ -212,14 +212,14 @@ export function EditableStoryRail({ primaryRoute }: HomeSectionProps) {
             See all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="centipy-marquee mt-7 flex gap-3">
           {categories.map((task) => {
             const Icon = taskIcon[task.key] || FileText
             return (
               <Link
                 key={task.key}
                 href={task.route}
-                className="group flex flex-col items-center gap-3 rounded-xl border border-[var(--editable-border)] bg-[var(--slot4-surface-bg)] px-3 py-6 text-center transition duration-300 hover:-translate-y-1 hover:border-[var(--slot4-accent)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.10)]"
+                className="group flex w-44 shrink-0 flex-col items-center gap-3 border border-[var(--editable-border)] bg-[var(--slot4-surface-bg)] px-3 py-6 text-center transition duration-300 hover:-translate-y-1 hover:border-[var(--slot4-accent)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.10)]"
               >
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--slot4-accent-soft)] text-[var(--slot4-accent)] transition group-hover:scale-105">
                   <Icon className="h-6 w-6" />
@@ -276,7 +276,7 @@ export function EditableMagazineSplit({ primaryTask, primaryRoute, posts, timeSe
   const activity = dedupePosts([...posts, ...timeSections.flatMap((section) => section.posts)]).slice(0, 9)
   if (!activity.length) return null
   return (
-    <section className="bg-[var(--slot4-warm)]">
+    <section className="bg-[var(--slot4-warm)] [background-image:radial-gradient(#cdd1c0_1px,transparent_1px)] [background-size:20px_20px]">
       <div className={`py-14 sm:py-16 ${container}`}>
         <div className="text-center">
           <h2 className="text-3xl font-extrabold tracking-[-0.01em] sm:text-4xl">Recent activity</h2>
@@ -383,7 +383,7 @@ export function EditableHomeCta() {
           Got something worth sharing?
         </h2>
         <p className="max-w-xl text-base text-white/90 sm:text-lg">
-          Add your business, post a listing, or share a story — and reach the {SITE_CONFIG.name} community.
+          Share a useful story, guide, or visual resource with the {SITE_CONFIG.name} community.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link href="/create" className="inline-flex items-center gap-2 rounded-lg bg-white px-7 py-3 text-sm font-bold text-[var(--slot4-accent)] transition hover:brightness-95">
